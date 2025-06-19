@@ -3,13 +3,11 @@ from enum import Enum
 
 class TextType(Enum):
     TEXT = "text"               # text
-    BOLD = "bold"               # **Bold text**
-    ITALIC = "italic"           # _Italic text_
-    CODE = "code"               # `Code text`
-    ANCHOR = "anchor"           # [anchor text](url)
-    LINK = "link"               # [anchor text](url)
-    IMAGE = "image"             # ![alt text](url)
-    BLOCK_LEVEL = "block"       # block level
+    BOLD = "bold"               # 'b'
+    ITALIC = "italic"           # 'i'
+    CODE = "code"               # 'code'
+    LINK = "link"               # 'a'
+    IMAGE = "image"             # 'img'
 
 
 class TextNode():
