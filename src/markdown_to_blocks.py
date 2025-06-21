@@ -20,7 +20,7 @@ def markdown_to_blocks(markdown):
 def block_to_block_type(block):
     if re.match(r"^#{1,6}(?!#)", block):
         return BlockType.HEADING
-    if block.startswith("```"):
+    if block.startswith("```") and block.endswith("```"):
         return BlockType.CODE
     if block.startswith('>'):
         if is_unorder(block, '>'):
@@ -34,10 +34,10 @@ def block_to_block_type(block):
     return BlockType.PARAGRAPH
 
 
-def is_unorder(block, char):
+def is_unorder(block, start):
     lines = block.split('\n')
     for line in lines:
-        if not line.startswith(char):
+        if not line.startswith(start):
             return False
     return True
 
@@ -45,6 +45,6 @@ def is_unorder(block, char):
 def is_order(block):
     lines = block.split('\n')
     for line in lines:
-        if not re.match(r"^\d+\.", line):
+        if not re.match(r"^\d+\.\s", line):
             return False
     return True

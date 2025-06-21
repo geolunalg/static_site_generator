@@ -51,10 +51,10 @@ class TestParentNode(unittest.TestCase):
 
     def test_to_html_value_error_no_tag(self):
         child_node = LeafNode("child", "b")
-        parent_node = ParentNode("", [child_node])
+        parent_node = ParentNode(None, [child_node])
         self.assertRaises(ValueError, parent_node.to_html)
 
     def test_to_html_value_error_child_no_value(self):
-        child_node = LeafNode("", "b")
+        child_node = LeafNode(None, "b")
         parent_node = ParentNode("div", [child_node])
         self.assertRaises(ValueError, parent_node.to_html)

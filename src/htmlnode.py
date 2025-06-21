@@ -30,8 +30,10 @@ class LeafNode(HTMLNode):
         super().__init__(value, tag, None, props)
 
     def to_html(self):
-        if not self.value and self.tag != "img":
+        if self.value is None:
             raise ValueError("leaf nodes must have a value")
+        if self.tag is None:
+            return self.value
         open_tag = f"<{self.tag}{self.props_to_html()}>" if self.tag else ""
         close_tag = f"</{self.tag}>" if self.tag else ""
         return f"{open_tag}{self.value}{close_tag}"
@@ -42,16 +44,16 @@ class ParentNode(HTMLNode):
         super().__init__(None, tag, children, props)
 
     def to_html(self):
-        if not self.tag:
+        if self.tag is None:
             raise ValueError("parent node must hava a tag")
+
+        if self.children is None:
+            raise ValueError("parent must have children")
 
         open_tag = f"<{self.tag}{self.props_to_html()}>"
         close_tag = f"</{self.tag}>"
         children = []
         for child in self.children:
-            if not isinstance(child, ParentNode) and not child.value:
-                raise ValueError("parent node children must hava a value")
-
             children.append(child.to_html())
 
         return open_tag + ''.join(children) + close_tag
